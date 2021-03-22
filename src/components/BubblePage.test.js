@@ -1,9 +1,11 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import BubblePage from "./BubblePage";
+import App from "../App";
 
 test("Renders BubblePage without errors", () => {
   // Finish this test
+  render(<App />)
 });
 
 test("Fetches data and renders the bubbles on mounting", () => {

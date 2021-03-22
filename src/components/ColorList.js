@@ -21,6 +21,10 @@ const ColorList = ({ colors, updateColors }) => {
   };
 
   const deleteColor = color => {
+    axios.delete(`http://localhost:5000/api/colors/${color.id}`)
+    .then(res => updateColors(res.data))
+    .catch(err => console.log(err));
+    color.history.push('/api/colors')
   };
 
   return (
