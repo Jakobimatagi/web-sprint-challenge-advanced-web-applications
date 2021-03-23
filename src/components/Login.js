@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import axios from "axios";
 
 class Login extends React.Component {
@@ -31,13 +31,6 @@ class Login extends React.Component {
       .catch(err => console.log(err));
   };
 
-  
-  // when you have handled the token, navigate to the BubblePage route
-
-  // useEffect(()=>{
-  //   // make a post request to retrieve a token from the api
-  //   // when you have handled the token, navigate to the BubblePage route
-  // });
   render ()
     {
       return(
