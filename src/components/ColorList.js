@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import EditMenu from "./EditMenu";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from 'react-router-dom'
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
 const initialColor = {
   color: "",
@@ -9,33 +9,48 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
+  console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
-  const history = useHistory();
+  const { push } = useHistory()
+  const params = useParams()
 
-  
-  const editColor = (color) => {
+  const editColor = color => {
     setEditing(true);
     setColorToEdit(color);
   };
 
-  const saveEdit = (e) => {
-    e.preventDefault();
-  };
+  const saveEdit = e => {
+    console.log(colors)
+    // Make a put request to save your updated color
+    // think about where will you get the id from...
+    // where is is saved right now?
 
-  const deleteColor = (color) => {
+    
+      axiosWithAuth()
+      .put(`/colors/${colorToEdit.id}`, colorToEdit)
+      .then(res => {
+        console.log(res.data)
+        updateColors(res.data)
+      })
+
+      .catch(err => console.log(err))
     
 
-    axiosWithAuth()
-      .delete(`/colors/${color.id}`)
-      .then((res) => {
-        console.log(res.data, "2")
-        updateColors(res.data);
-        
-      })
-      .catch((err) => console.log(err));
-    // history.push('/bubble-page')
   };
+
+
+  const deleteColor = color => {
+    // make a delete request to delete this color
+    axiosWithAuth()
+    .delete(`/colors/${color.id}`)
+    .then(res => {
+      console.log(res.data)
+      updateColors(res.data)
+    })
+  };
+
+
 
   return (
     <div className="colors-wrap">
